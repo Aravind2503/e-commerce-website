@@ -1,14 +1,16 @@
 const express = require("express");
-const loginRoute = require("./routers/login");
+require("./db/connect");
+const userRoute = require("./routers/user");
+// const bodyParser = require("body-parser");
 
 app = express();
-app.use("/login", loginRoute);
+app.use(express.json());
+app.use(userRoute);
 
-port = process.env.PORT || 9001;
+// app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
+// app.use(bodyParser.json()); // Send JSON responses
 
-app.get("/", (req, res) => {
-  res.status(200).send("this is the / route");
-});
+port = process.env.PORT;
 
 app.listen(port, () => {
   console.log("server up on port ", port);
