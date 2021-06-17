@@ -1,14 +1,14 @@
 const express = require("express");
 require("./db/connect");
 const userRoute = require("./routers/user");
-// const bodyParser = require("body-parser");
+const productRoute = require("./routers/product");
 
 app = express();
 app.use(express.json());
-app.use(userRoute);
+app.use(express.urlencoded());
 
-// app.use(bodyParser.urlencoded({ extended: false })); // Parses urlencoded bodies
-// app.use(bodyParser.json()); // Send JSON responses
+app.use(userRoute);
+app.use(productRoute);
 
 port = process.env.PORT;
 
