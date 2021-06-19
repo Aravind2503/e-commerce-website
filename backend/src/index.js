@@ -1,14 +1,16 @@
 const express = require("express");
-const loginRoute = require("./routers/login");
+require("./db/connect");
+const userRoute = require("./routers/user");
+const productRoute = require("./routers/product");
 
 app = express();
-app.use("/login", loginRoute);
+app.use(express.json());
+app.use(express.urlencoded());
 
-port = process.env.PORT || 9001;
+app.use(userRoute);
+app.use(productRoute);
 
-app.get("/", (req, res) => {
-  res.status(200).send("this is the / route");
-});
+port = process.env.PORT;
 
 app.listen(port, () => {
   console.log("server up on port ", port);
