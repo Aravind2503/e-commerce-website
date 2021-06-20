@@ -4,18 +4,18 @@ const Product = require("../models/product");
 const multer = require("multer");
 const sharp = require("sharp");
 
-router.post("/products", async (req, res) => {
-  const product = new Product(req.body);
-  console.log(req.body);
+// router.post("/products", async (req, res) => {
+//   const product = new Product(req.body);
+//   console.log(req.body);
 
-  try {
-    await product.save();
+//   try {
+//     await product.save();
 
-    res.status(201).send();
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
+//     res.status(201).send();
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
 
 const upload = multer({
   limits: {
@@ -29,25 +29,26 @@ const upload = multer({
   },
 });
 
-router.post(
-  "/product/images",
-  upload.single("images"),
-  async (req, res) => {
-    // req.user.avatar= req.file.buffer
+// router.post(
+//   "/product/images",
+//   upload.single("images"),
+//   async (req, res) => {
+//     // req.user.avatar= req.file.buffer
 
-    const buffer = await sharp(req.file.buffer)
-      .resize({ width: 250, height: 250 })
-      .png()
-      .toBuffer();
-    req.user.avatar = buffer;
+//     const buffer = await sharp(req.file.buffer)
+//       .resize({ width: 250, height: 250 })
+//       .png()
+//       .toBuffer();
+//     // req.user.avatar = buffer;
+//     console.log(buffer);
 
-    await req.user.save();
-    res.send();
-  },
-  (error, req, res, next) => {
-    res.status(404).send({ error: error.message });
-  }
-);
+//     // await req.user.save();
+//     res.send();
+//   },
+//   (error, req, res, next) => {
+//     res.status(404).send({ error: error.message });
+//   }
+// );
 
 router.post("/products/search", async (req, res) => {
   try {
@@ -59,5 +60,73 @@ router.post("/products/search", async (req, res) => {
     res.status(400).send(error);
   }
 });
+
+// //this one is for multiple images
+// router.post(
+//   "/products/images",
+//   upload.array("images", 10),
+//   async (req, res) => {
+//     // req.user.avatar= req.file.buffer
+
+//     // // const buffer = await sharp(req.file.buffer)
+//     //   .resize({ width: 250, height: 250 })
+//     //   .png()
+//     //   .toBuffer();
+//     // req.user.avatar = buffer;
+//     console.log(req.files);
+
+//     req.files.forEach((ele) => {
+//       console.log(ele.buffer);
+//     });
+
+//     // await req.user.save();
+//     res.send();
+//   },
+//   (error, req, res, next) => {
+//     res.status(404).send({ error: error.message });
+//   }
+// );
+
+//route that includes the images and the form data
+
+router.post(
+  "/products/insert",
+  upload.array("images", 10),
+  async (req, res) => {
+    const data = req.body;
+
+    const product = new Product(req.body);
+
+    // console.log(req.body);
+
+    // console.log(product);
+
+    if (!req.files) {
+      console.log("no files");
+    } else {
+      // req.files.forEach(async (ele, index) => {
+      //   const buf = await sharp(ele.buffer).png().toBuffer();
+      //   console.log(buf);
+      //   product.images.push(buf);
+      // });
+
+      for (const file of req.files) {
+        const buf = await sharp(file.buffer).png().toBuffer();
+        console.log(buf);
+        product.images.push({ image: buf });
+        // product.images = product.images.concat({ buf });
+      }
+    }
+    console.log(product);
+
+    try {
+      await product.save();
+
+      res.status(201).send("ok");
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+);
 
 module.exports = router;
