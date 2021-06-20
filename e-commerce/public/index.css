@@ -1,0 +1,49 @@
+.search-box {
+    width: 500px;
+}
+
+.flex-box {
+    display: flex;
+    padding: 2px;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: auto;
+}
+
+.flex-element {
+    flex-direction: left;
+    padding: 1px;
+    border: 0.5px solid #cacaca;
+    flex: 0 1 30%;
+    margin: 10px auto 10px 0;
+    text-align: left;
+}
+
+.flex-box img {
+    object-fit: cover;
+}
+
+a {
+    text-decoration: None;
+}
+
+@media only screen and (max-width: 600px) {
+    .flex-box {
+        width: 80%;
+        margin: auto;
+    }
+    .flex-element {
+        padding: 1px;
+        flex: 0 1 40%;
+        margin: 10px auto;
+    }
+
+    .flex-element img {
+        width: "20px";
+        height: "20px";
+    }
+
+    .search-box {
+        width: 200px;
+    }
+}
