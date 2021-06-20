@@ -5,17 +5,17 @@ import SearchPage from "./components/SearchPage";
 import HomePage from "./components/HomePage";
 
 function App() {
-    const [products, setProducts] = useState([]);
-    return (
-        <div className="App">
-            <Router>
-                <Route path="/" exact component={HomePage} />
-                <Route path="/home" exact component={HomePage} />
-                <Route path="/login" exact component={LoginPage} />
-                <Route path="/search" exact component={SearchPage} />
-            </Router>
-        </div>
-    );
+  const [products, setProducts] = useState([]);
+  return (
+    <div className="App">
+      <Router>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/home" exact component={HomePage} />
+        <Route path="/login" exact component={LoginPage} />
+        <Route path="/search" exact component={SearchPage} />
+      </Router>
+    </div>
+  );
 }
 
 export default App;
