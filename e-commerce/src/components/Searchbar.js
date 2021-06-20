@@ -10,9 +10,11 @@ export default function Searchbar(props) {
         console.log(product);
 
         props.setProducts(
-            props.products.filter(
-                (p) =>
-                    p.name.toLowerCase().trim() === product.toLowerCase().trim()
+            props.products.filter((p) =>
+                p.name
+                    .toLowerCase()
+                    .trim()
+                    .includes(product.toLowerCase().trim())
             )
         );
 

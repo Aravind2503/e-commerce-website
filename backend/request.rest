@@ -1,0 +1,14 @@
+POST http://localhost:9001/users
+Content-Type: application/json
+
+{
+    "name": "user1",
+    "email": "user1@email.com",
+    "password": "user1pass",
+    "age": "10"
+}
+
+###
+
+GET http://localhost:9001/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNmNWRlYWE2NWEwYTM3ZWM4ZThkZjEiLCJpYXQiOjE2MjQyMDI3MzB9.K14Aii80wOfJ3CdLImKxJCY3o1M6nFTT9LJtE6cFtP8

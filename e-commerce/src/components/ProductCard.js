@@ -2,7 +2,7 @@ export default function ProductCard(props) {
     const { name, image, category, price, id } = props.product;
 
     return (
-        <div className="card flex-element">
+        <div className="card flex-element my-4">
             <img
                 src={`data:image/png;base64, ${image}`}
                 width="240px"
@@ -15,9 +15,9 @@ export default function ProductCard(props) {
                 <h6>Price: {price}</h6>
                 <div>Category: {category}</div>
                 <hr />
-                <a href="#" className="btn btn-primary m-1">
+                <button href="#" className="btn btn-primary m-1">
                     MoreDetails
-                </a>
+                </button>
                 <button className="btn btn-primary m-1">Add To Cart</button>
             </div>
         </div>

@@ -21,6 +21,16 @@ const categories = [
         id: 4,
         image: "./assets/fashion-category.jpg",
     },
+    {
+        name: "Selfcare",
+        id: 5,
+        image: "./assets/fashion-category.jpg",
+    },
+    {
+        name: "Toys",
+        id: 6,
+        image: "./assets/fashion-category.jpg",
+    },
 ];
 
 function onClick(category) {

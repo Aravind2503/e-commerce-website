@@ -8,6 +8,7 @@
     flex-wrap: wrap;
     width: 70%;
     margin: auto;
+    justify-content: space-evenly;
 }
 
 .flex-element {
@@ -15,8 +16,9 @@
     padding: 1px;
     border: 0.5px solid #cacaca;
     flex: 0 1 30%;
-    margin: 10px auto 10px 0;
+    /* margin: 10px auto 10px 0; */
     text-align: left;
+    align-items: flex-end;
 }
 
 .flex-box img {
@@ -35,15 +37,26 @@ a {
     .flex-element {
         padding: 1px;
         flex: 0 1 40%;
-        margin: 10px auto;
     }
 
     .flex-element img {
-        width: "20px";
-        height: "20px";
+        height: 100px !important;
     }
 
     .search-box {
         width: 200px;
+    }
+
+    .flex-element button {
+        font-size: 10px;
+    }
+    .flex-element h5 {
+        font-size: 14px;
+    }
+    .flex-element h6 {
+        font-size: 12px;
+    }
+    .flex-element div {
+        font-size: 10px;
     }
 }
