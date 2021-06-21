@@ -1,14 +1,27 @@
 import Searchbar from "./Searchbar";
+import Cart from "./Cart";
 import { Link } from "react-router-dom";
+import { useUserInfo, useUserInfoUpdate } from "../UserInfoContext";
 
 export default function Navbar(props) {
+    const username = useUserInfo().name;
+    const updateUser = useUserInfoUpdate();
+
+    function logout(e) {
+        updateUser({
+            name: null,
+            token: null,
+            remember: false,
+        });
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand ms-4" href="/home">
+                    <Link className="navbar-brand ms-4" to="/home">
                         Super Market
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -26,14 +39,14 @@ export default function Navbar(props) {
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             {!props.searchBar && (
-                                <li className="nav-item">
-                                    <a
+                                <li className="nav-item btn-group">
+                                    <Link
                                         className="nav-link active"
                                         aria-current="page"
-                                        href="/search"
+                                        to="/search"
                                     >
                                         Search
-                                    </a>
+                                    </Link>
                                 </li>
                             )}
                         </ul>
@@ -43,54 +56,58 @@ export default function Navbar(props) {
                                 products={props.products}
                             />
                         )}
+                        {props.searchBar && <Cart />}
 
-                        {props.username ? (
+                        {username ? (
                             <div className="nav-item btn-group me-4">
                                 <div
                                     className="nav-link dropdown-toggle"
-                                    href="#"
+                                    to="#"
                                     id="navbarDropdown"
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    {props.username || "USERNAME"}
+                                    {username || "USERNAME"}
                                 </div>
                                 <ul
                                     className="dropdown-menu"
                                     aria-labelledby="navbarDropdown"
                                 >
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/cart"
+                                            to="/cart"
                                         >
                                             Go to cart
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
+                                        <Link
                                             className="dropdown-item"
-                                            href="/profile"
+                                            to="/profile"
                                         >
                                             Profile
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <hr className="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a
+                                        <button
                                             className="dropdown-item"
-                                            href="/logout"
+                                            onClick={logout}
                                         >
                                             Logout
-                                        </a>
+                                        </button>
                                     </li>
                                 </ul>
                             </div>
                         ) : (
-                            <Link to="/login" className="text-white me-4 ms-2">
+                            <Link
+                                to="/login"
+                                className="nav-item btn-group me-4 text-white me-4 ms-2"
+                            >
                                 Login
                             </Link>
                         )}

@@ -32,7 +32,7 @@ export default function Searchbar(props) {
                 onChange={(e) => setProduct(e.target.value.toLowerCase())}
             />
             <button
-                className="btn btn-outline-success text-white"
+                className="btn btn-outline-success text-white search-button"
                 type="submit"
             >
                 {/* <Link to="/search">Search</Link> */}Search
