@@ -1,70 +1,140 @@
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useUserInfoUpdate } from "../UserInfoContext";
 
 export default function RegisterPage(props) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [age, setAge] = useState(undefined);
+    const [password, setPassword] = useState("");
+    const [rememberuser, setRememberuser] = useState(true);
+
+    const updateUser = useUserInfoUpdate();
+
+    function onSubmit(e) {
+        e.preventDefault();
+        console.log({
+            name,
+            email,
+            age,
+            password,
+        });
+        async function register() {
+            const response = await fetch("http://localhost:9001/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    age,
+                    password,
+                }),
+            });
+
+            console.log("response", response);
+            if (response.ok) {
+                const userinfo = await response.json();
+                console.log(userinfo);
+
+                updateUser({
+                    name: userinfo.user.name,
+                    token: userinfo.token,
+                    remember: rememberuser,
+                });
+
+                window.location.replace("/home");
+                return userinfo;
+            } else {
+                console.log(response);
+            }
+        }
+
+        register().catch((err) => {
+            console.log(err);
+        });
+    }
+
     return (
         <div>
             <Navbar searchBar={false} />
-            <div class="container border border-dark border-4 p-5 mt-4">
-                <form>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">
+            <div className="container border border-dark border-4 p-5 mt-4">
+                <form onSubmit={onSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="username" className="form-label">
                             Username :
                         </label>
                         <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="username"
                             required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
-                    <div class="mb-3">
-                        <label for="userid" class="form-label">
+                    <div className="mb-3">
+                        <label htmlFor="userid" className="form-label">
                             Email address
                         </label>
                         <input
                             type="email"
-                            class="form-control"
+                            className="form-control"
                             id="userid"
                             required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
-                    <div class="mb-3">
-                        <label for="userage" class="form-label">
+                    <div className="mb-3">
+                        <label htmlFor="userage" className="form-label">
                             Age :
                         </label>
                         <input
                             type="number"
-                            class="form-control"
+                            className="form-control"
                             id="userage"
                             required
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
                         />
                     </div>
 
-                    <div class="mb-3">
-                        <label for="userpassword" class="form-label">
+                    <div className="mb-3">
+                        <label htmlFor="userpassword" className="form-label">
                             Password
                         </label>
                         <input
                             type="password"
-                            class="form-control"
+                            className="form-control"
                             id="userpassword"
                             required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div class="mb-3 form-check">
+                    <div className="mb-3 form-check">
                         <input
                             type="checkbox"
-                            class="form-check-input"
+                            className="form-check-input"
                             id="rememberuser"
+                            checked={rememberuser}
+                            onChange={(e) =>
+                                setRememberuser(e.currentTarget.checked)
+                            }
                         />
-                        <label class="form-check-label" for="rememberuser">
+                        <label
+                            className="form-check-label"
+                            htmlFor="rememberuser"
+                        >
                             Remember me
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" className="btn btn-primary">
                         Submit
                     </button>
                 </form>
