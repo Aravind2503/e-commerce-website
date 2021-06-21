@@ -18,15 +18,15 @@ const sharp = require("sharp");
 // });
 
 const upload = multer({
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return cb(new Error("Please upload an image"));
-    }
-    cb(undefined, true);
-  },
+    limits: {
+        fileSize: 1000000,
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error("Please upload an image"));
+        }
+        cb(undefined, true);
+    },
 });
 
 // router.post(
@@ -51,14 +51,14 @@ const upload = multer({
 // );
 
 router.post("/products/search", async (req, res) => {
-  try {
-    console.log(req.body);
-    const obj = await Product.find(req.body);
-    console.log(obj);
-    res.status(201).send(obj);
-  } catch (error) {
-    res.status(400).send(error);
-  }
+    try {
+        console.log(req.body);
+        const obj = await Product.find(req.body);
+        console.log(obj);
+        res.status(201).send(obj);
+    } catch (error) {
+        res.status(400).send(error);
+    }
 });
 
 // //this one is for multiple images
@@ -90,43 +90,43 @@ router.post("/products/search", async (req, res) => {
 //route that includes the images and the form data
 
 router.post(
-  "/products/insert",
-  upload.array("images", 10),
-  async (req, res) => {
-    const data = req.body;
+    "/products/insert",
+    upload.array("images", 10),
+    async (req, res) => {
+        const data = req.body;
 
-    const product = new Product(req.body);
+        const product = new Product(req.body);
 
-    // console.log(req.body);
+        // console.log(req.body);
 
-    // console.log(product);
+        // console.log(product);
 
-    if (!req.files) {
-      console.log("no files");
-    } else {
-      // req.files.forEach(async (ele, index) => {
-      //   const buf = await sharp(ele.buffer).png().toBuffer();
-      //   console.log(buf);
-      //   product.images.push(buf);
-      // });
+        if (!req.files) {
+            console.log("no files");
+        } else {
+            // req.files.forEach(async (ele, index) => {
+            //   const buf = await sharp(ele.buffer).png().toBuffer();
+            //   console.log(buf);
+            //   product.images.push(buf);
+            // });
 
-      for (const file of req.files) {
-        const buf = await sharp(file.buffer).png().toBuffer();
-        console.log(buf);
-        product.images.push({ image: buf });
-        // product.images = product.images.concat({ buf });
-      }
+            for (const file of req.files) {
+                const buf = await sharp(file.buffer).png().toBuffer();
+                console.log(buf);
+                product.images.push({ image: buf });
+                // product.images = product.images.concat({ buf });
+            }
+        }
+        console.log(product);
+
+        try {
+            await product.save();
+
+            res.status(201).send("ok");
+        } catch (error) {
+            res.status(400).send(error);
+        }
     }
-    console.log(product);
-
-    try {
-      await product.save();
-
-      res.status(201).send("ok");
-    } catch (error) {
-      res.status(400).send(error);
-    }
-  }
 );
 
 module.exports = router;
