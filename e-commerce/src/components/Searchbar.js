@@ -22,7 +22,7 @@ export default function Searchbar(props) {
     }
 
     return (
-        <form action="/search" className="d-flex m-2" onSubmit={onSubmit}>
+        <form action="/search" className="d-flex" onSubmit={onSubmit}>
             <input
                 className="form-control me-2 search-box"
                 type="search"
@@ -32,7 +32,7 @@ export default function Searchbar(props) {
                 onChange={(e) => setProduct(e.target.value.toLowerCase())}
             />
             <button
-                className="btn btn-outline-success text-white search-button"
+                className="btn btn-outline-success text-white search-button mx-2"
                 type="submit"
             >
                 {/* <Link to="/search">Search</Link> */}Search

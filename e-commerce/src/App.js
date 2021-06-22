@@ -5,7 +5,7 @@ import SearchPage from "./components/SearchPage";
 import HomePage from "./components/HomePage";
 import RegisterPage from "./components/RegisterPage";
 import CartPage from "./components/CartPage";
-import { UserInfoProvider } from "./UserInfoContext";
+import { UserInfoProvider } from "./context/UserInfo";
 
 function App() {
     // const [products, setProducts] = useState([]);

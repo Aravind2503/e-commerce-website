@@ -21,16 +21,19 @@ export function UserInfoProvider({ children }) {
         setUser({ name, token });
         console.log("inside context provider", name, token, remember);
         if (remember) localStorage.setItem("token", token);
-        else if (localStorage.token) localStorage.removeItem("token");
+        else {
+            sessionStorage.setItem("token", token);
+            if (localStorage.token) localStorage.removeItem("token");
+        }
     }
 
     useEffect(() => {
         console.log("i am inside this!");
-        async function fetchUser() {
+        async function fetchUser(token) {
             const response = await fetch("http://localhost:9001/users/me", {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${localStorage.token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
@@ -49,7 +52,9 @@ export function UserInfoProvider({ children }) {
             return null;
         }
 
-        if (localStorage && localStorage.token) fetchUser();
+        if (localStorage && localStorage.token) fetchUser(localStorage.token);
+        else if (sessionStorage && sessionStorage.token)
+            fetchUser(sessionStorage.token);
     }, []);
 
     return (

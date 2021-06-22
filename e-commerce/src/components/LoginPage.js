@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUserInfoUpdate } from "../UserInfoContext";
+import { useUserInfoUpdate } from "../context/UserInfo";
 
 export default function LoginPage(props) {
     const [email, setEmail] = useState("");
@@ -48,6 +48,7 @@ export default function LoginPage(props) {
         <div>
             <Navbar searchBar={false} />
             <div className="container border border-dark border-4 p-5 mt-4">
+                <h1 className="text-center">Login</h1>
                 <form onSubmit={onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="userid" className="form-label">
