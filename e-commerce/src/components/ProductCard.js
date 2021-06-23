@@ -1,6 +1,9 @@
-export default function ProductCard(props) {
-    const { name, image, category, price, id } = props.product;
+import { useUpdateCartInfo } from "../context/CartInfo";
 
+export default function ProductCard(props) {
+    const { name, image, category, price, _id } = props.product;
+    const { removeProduct: removeCartItem, insertProduct: insertCartItem } =
+        useUpdateCartInfo();
     return (
         <>
             {/* <div className="card flex-element my-2">
@@ -40,7 +43,22 @@ export default function ProductCard(props) {
                     <button href="#" className="btn btn-primary m-1">
                         MoreDetails
                     </button>
-                    <button className="btn btn-primary m-1">Add To Cart</button>
+
+                    {props.removeButton ? (
+                        <button
+                            className="btn btn-primary m-1"
+                            onClick={(e) => removeCartItem({ _id })}
+                        >
+                            Remove Item
+                        </button>
+                    ) : (
+                        <button
+                            className="btn btn-primary m-1"
+                            onClick={(e) => insertCartItem({ _id })}
+                        >
+                            Add To Cart
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="separator">

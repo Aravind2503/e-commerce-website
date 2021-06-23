@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { productSchema } = require("./product");
 const validator = require("validator");
 
 const cartSchema = new mongoose.Schema({
@@ -15,7 +14,7 @@ const cartSchema = new mongoose.Schema({
         },
     },
 
-    products: [productSchema],
+    products: [String],
 });
 
 const Cart = mongoose.model("Cart", cartSchema);

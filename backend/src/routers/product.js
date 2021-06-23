@@ -52,14 +52,14 @@ const upload = multer({
 
 router.post("/products/search", async (req, res) => {
     try {
-        console.log(req.body);
+        console.log("in product route search:", req.body);
         const obj = await Product.find(req.body);
-        console.log(
-            "response from product route for query:",
-            req.body,
-            "is:\n",
-            obj
-        );
+        // console.log(
+        //     "response from product route for query:",
+        //     req.body,
+        //     "is:\n",
+        //     obj
+        // );
         res.status(200).json(obj);
     } catch (error) {
         res.status(400).send(error);
@@ -117,18 +117,18 @@ router.post(
 
             for (const file of req.files) {
                 const buf = await sharp(file.buffer).png().toBuffer();
-                console.log(buf);
-                product.images.push({ image: buf });
+
+                product.images.push(buf.toString("base64"));
                 // product.images = product.images.concat({ buf });
             }
         }
-        console.log(product);
 
         try {
             await product.save();
 
             res.status(201).send("ok");
         } catch (error) {
+            console.log(error.message);
             res.status(400).send(error);
         }
     }

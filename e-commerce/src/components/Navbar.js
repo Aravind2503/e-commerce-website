@@ -23,6 +23,8 @@ export default function Navbar(props) {
             });
         }
         deleteServerToken();
+
+        window.location.reload();
     }
 
     return (
@@ -66,7 +68,7 @@ export default function Navbar(props) {
                                 products={props.products}
                             />
                         )}
-                        {props.searchBar && <Cart />}
+                        {username && <Cart />}
 
                         {username ? (
                             <div className="nav-item btn-group">

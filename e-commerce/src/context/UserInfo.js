@@ -28,7 +28,6 @@ export function UserInfoProvider({ children }) {
     }
 
     useEffect(() => {
-        console.log("i am inside this!");
         async function fetchUser(token) {
             const response = await fetch("http://localhost:9001/users/me", {
                 method: "GET",

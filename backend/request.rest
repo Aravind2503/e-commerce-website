@@ -29,7 +29,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNmNWRlY
 
 
 ###
-POST http://localhost:9001/products/search HTTP/1.1
+POST http://localhost:9001/products/search
 Content-Type: application/json
 
-{}
+{
+    "name": "ipad"
+}
+
+
+###
+GET http://localhost:9001/cart/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNmNWRlYWE2NWEwYTM3ZWM4ZThkZjEiLCJpYXQiOjE2MjQzNzg2NTl9.T1d5BrU562vk6PS2gCoC7yJKcu3pKufhZOJL9Gwt52M
+
+####

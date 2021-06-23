@@ -22,7 +22,7 @@ router.get("/insert", (req, res) => {
       </head>
       <body>
           <form action="http://localhost:9001/products/insert" method="post" enctype="multipart/form-data">
-            product name <input type="text" name = "product_name" id="product_name"/><br>
+            product name <input type="text" name = "name" id="product_name"/><br>
             description <input type="text" name = "description" id="description"/><br>
             price <input type="number" name = "price" id="price"/><br>
             brand <input type="text" name = "brand" id="brand"/><br>
