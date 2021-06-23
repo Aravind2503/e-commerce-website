@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
+import Loading from "./Loading";
 
 export default function CartPage(props) {
     const cart = useCartInfo();
@@ -28,9 +29,7 @@ export default function CartPage(props) {
                             );
                         })
                     ) : (
-                        <div className="text-center">
-                            <h3>Loading Please Wait...</h3>
-                        </div>
+                        <Loading>Loading Cart...</Loading>
                     )
                 ) : (
                     <div className="text-center">
