@@ -111,7 +111,10 @@ router.post(
             // });
 
             for (const file of req.files) {
-                const buf = await sharp(file.buffer).png().toBuffer();
+                const buf = await sharp(file.buffer)
+                    .resize({ width: 250, height: 250 })
+                    .png()
+                    .toBuffer();
                 console.log(buf);
                 product.images.push({ image: buf });
                 // product.images = product.images.concat({ buf });
