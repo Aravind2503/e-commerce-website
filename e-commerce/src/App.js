@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import { useState } from "react";
 import LoginPage from "./components/LoginPage";
-import SearchPage from "./components/SearchPage";
+import SearchPage from "./components/SearchPage2";
 import HomePage from "./components/HomePage";
 import RegisterPage from "./components/RegisterPage";
 import ProfilePage from "./components/ProfilePage";
 import CartPage from "./components/CartPage";
+import DetailsPage from "./components/DetailsPage";
 import { UserInfoProvider } from "./UserInfoContext";
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
                     <Route path="/register" exact component={RegisterPage} />
                     <Route path="/search" exact component={SearchPage} />
                     <Route path="/cart" exact component={CartPage} />
+                    <Route path="/profile" exact component={ProfilePage} />
+                    <Route path="/details" exact component={DetailsPage} />
                 </UserInfoProvider>
             </Router>
         </div>

@@ -1,19 +1,30 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
+import { useUserInfoUpdate } from "../UserInfoContext";
 
 const ProfilePage = () => {
     const [user, setUser] = useState({});
 
+    const [name, setName] = useState();
+    const [age, setAge] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
     const updateFields = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const requestOptions = {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNhMmRiZjlhMDJjMzNhZDA5YmUwMmEiLCJpYXQiOjE2MjQyNjc1OTF9.c1-M_maUKKpf1x8P9ipZZbkNUzJocvUmTthV4gejtXM",
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwZDQzOTU3OTkxYTNkZWMxNWFlYTUiLCJpYXQiOjE2MjQyOTg1NTN9.naWSz7ur4TBDqvCuecEjrkj6ek0y8LU7wLYABCkEe94`,
             },
+            body: JSON.stringify({
+                name,
+                age,
+                email,
+                password,
+            }),
         };
         fetch("http://localhost:9001/users/me", requestOptions)
             .then((response) => response.json())
@@ -32,7 +43,7 @@ const ProfilePage = () => {
             headers: {
                 "Content-Type": "application/json",
                 Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNhMmRiZjlhMDJjMzNhZDA5YmUwMmEiLCJpYXQiOjE2MjQyNjc1OTF9.c1-M_maUKKpf1x8P9ipZZbkNUzJocvUmTthV4gejtXM",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwZDQzOTU3OTkxYTNkZWMxNWFlYTUiLCJpYXQiOjE2MjQyOTg1NTN9.naWSz7ur4TBDqvCuecEjrkj6ek0y8LU7wLYABCkEe94",
             },
         };
         fetch("http://localhost:9001/users/me", requestOptions)
@@ -51,31 +62,50 @@ const ProfilePage = () => {
             <div>
                 <Navbar search={false} />
             </div>
-            <div style={profPagestyle} className="profcontainer">
+            <div className="profcontainer">
                 <h1>User Profile</h1>
-                <form onSubmit={updateFields}>
-                    <br></br>
-                    <label htmlFor="name" style={{ paddingRight: "10px" }}>
-                        Name:
-                    </label>
-                    <input type="text" placeholder={user.name} name="name" />
-                    <br></br>
-                    <label htmlFor="age" style={{ paddingRight: "10px" }}>
-                        Age:
-                    </label>
-                    <input type="text" placeholder={user.age} name="age" />
-                    <br></br>
-                    <label htmlFor="email" style={{ paddingRight: "10px" }}>
-                        E-mail:
-                    </label>
-                    <input type="text" placeholder={user.email} name="email" />
-                    <br></br>
-                    <label htmlFor="email" style={{ paddingRight: "10px" }}>
-                        Password:
-                    </label>
-                    <input type="text" placeholder="******" name="email" />
-                    <br></br>
 
+                <br></br>
+                <form onSubmit={updateFields}>
+                    <label htmlFor="name" className="form-label">
+                        Name
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        // value={user.name}
+                        placeholder={user.name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <label htmlFor="name" className="form-label">
+                        Age
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        // value={user.age}
+                        placeholder={user.age}
+                        onChange={(e) => setAge(e.target.value)}
+                    />
+                    <label htmlFor="name" className="form-label">
+                        Email
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        // value={user.email}
+                        placeholder={user.email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label htmlFor="name" className="form-label">
+                        Password
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="**********"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                     <input
                         type="Submit"
                         value="Update"

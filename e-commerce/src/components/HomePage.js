@@ -49,6 +49,7 @@ export default function HomePage(props) {
                             className="card flex-element"
                             key={category.id}
                             onClick={(e) => onClick(category.name)}
+                            style={{ margin: "10px" }}
                         >
                             <img
                                 src={category.image}
