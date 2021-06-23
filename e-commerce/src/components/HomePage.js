@@ -42,19 +42,19 @@ export default function HomePage(props) {
         <>
             <Navbar searchBar={false} />
 
-            <div className="flex-box">
+            <div className="flex-box mt-2">
                 {categories.map((category) => {
                     return (
                         <div
-                            className="card flex-element"
+                            className="card flex-element m-2"
                             key={category.id}
                             onClick={(e) => onClick(category.name)}
                             style={{ margin: "10px" }}
                         >
                             <img
                                 src={category.image}
-                                width="240px"
-                                height="240px"
+                                width="220px"
+                                height="220px"
                                 className="card-img-top"
                                 alt="product"
                             />

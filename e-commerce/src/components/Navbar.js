@@ -1,10 +1,10 @@
 import Searchbar from "./Searchbar";
 import Cart from "./Cart";
 import { Link } from "react-router-dom";
-import { useUserInfo, useUserInfoUpdate } from "../UserInfoContext";
+import { useUserInfo, useUserInfoUpdate } from "../context/UserInfo";
 
 export default function Navbar(props) {
-    const username = useUserInfo().name;
+    const { name: username, token } = useUserInfo();
     const updateUser = useUserInfoUpdate();
 
     function logout(e) {
@@ -13,13 +13,25 @@ export default function Navbar(props) {
             token: null,
             remember: false,
         });
+
+        async function deleteServerToken() {
+            await fetch("http://localhost:9001/users/logout", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        }
+        deleteServerToken();
+
+        window.location.reload();
     }
 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
-                    <Link className="navbar-brand ms-4" to="/home">
+                    <Link className="navbar-brand ms-3" to="/home">
                         Super Market
                     </Link>
                     <button
@@ -56,10 +68,10 @@ export default function Navbar(props) {
                                 products={props.products}
                             />
                         )}
-                        {props.searchBar && <Cart />}
+                        {username && <Cart />}
 
                         {username ? (
-                            <div className="nav-item btn-group me-4">
+                            <div className="nav-item btn-group">
                                 <div
                                     className="nav-link dropdown-toggle"
                                     to="#"

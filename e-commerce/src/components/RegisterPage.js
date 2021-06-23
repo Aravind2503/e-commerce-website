@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useUserInfoUpdate } from "../UserInfoContext";
+import { useUserInfoUpdate } from "../context/UserInfo";
 
 export default function RegisterPage(props) {
     const [name, setName] = useState("");
@@ -61,6 +61,7 @@ export default function RegisterPage(props) {
         <div>
             <Navbar searchBar={false} />
             <div className="container border border-dark border-4 p-5 mt-4">
+                <h1 className="text-center">Register</h1>
                 <form onSubmit={onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">

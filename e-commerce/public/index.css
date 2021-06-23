@@ -1,8 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
-
 body {
-    font-family: "Poppins", sans-serif;
+    margin: 0 !important;
+    padding: 0 !important;
 }
+
+.container-fluid {
+    width: 100%;
+    margin: auto !important;
+    padding: 0 !important;
+    justify-content: space-evenly;
+}
+
 .search-box {
     width: 500px;
     height: 30px;
@@ -76,16 +83,48 @@ a {
     }
 }
 
-.profcontainer {
-    width: auto;
-    clear: both;
-    margin: 20px;
-    padding: 20px;
+.product-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 3px auto;
 }
 
-.profcontainer input {
+.separator {
     width: 100%;
-    clear: both;
-    margin: 10px;
-    padding: 10px;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.message {
+    margin-top: 220px;
 }
