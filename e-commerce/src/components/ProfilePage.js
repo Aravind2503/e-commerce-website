@@ -1,9 +1,12 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
-import { useUserInfoUpdate } from "../UserInfoContext";
+import { useUserInfo } from "../context/UserInfo";
+import Loading from "./Loading";
 
 const ProfilePage = () => {
+    const token = useUserInfo().token;
+    console.log(token);
     const [user, setUser] = useState({});
 
     const [name, setName] = useState();
@@ -17,7 +20,7 @@ const ProfilePage = () => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwZDQzOTU3OTkxYTNkZWMxNWFlYTUiLCJpYXQiOjE2MjQyOTg1NTN9.naWSz7ur4TBDqvCuecEjrkj6ek0y8LU7wLYABCkEe94`,
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name,
@@ -42,8 +45,7 @@ const ProfilePage = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwZDQzOTU3OTkxYTNkZWMxNWFlYTUiLCJpYXQiOjE2MjQyOTg1NTN9.naWSz7ur4TBDqvCuecEjrkj6ek0y8LU7wLYABCkEe94",
+                Authorization: `Bearer ${token}`,
             },
         };
         fetch("http://localhost:9001/users/me", requestOptions)
@@ -55,14 +57,14 @@ const ProfilePage = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [token]);
 
-    return (
+    return token ? (
         <div>
             <div>
                 <Navbar search={false} />
             </div>
-            <div className="profcontainer">
+            <div className="container">
                 <h1>User Profile</h1>
 
                 <br></br>
@@ -110,10 +112,13 @@ const ProfilePage = () => {
                         type="Submit"
                         value="Update"
                         className="btn-primary"
+                        style={{ width: "100%" }}
                     />
                 </form>
             </div>
         </div>
+    ) : (
+        <Loading>loading...</Loading>
     );
 };
 

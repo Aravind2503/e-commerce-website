@@ -1,10 +1,13 @@
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard2";
 import { useState, useEffect } from "react";
+import { useUserInfo } from "../context/UserInfo";
 
 export default function SearchPage2() {
     const [products, setProducts] = useState({});
     const [productSubSet, setProductSubSet] = useState({});
+
+    const token = useUserInfo().token;
 
     useEffect(() => {
         let isMounted = true;
@@ -16,7 +19,7 @@ export default function SearchPage2() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwZDQzOTU3OTkxYTNkZWMxNWFlYTUiLCJpYXQiOjE2MjQyOTg1NTN9.naWSz7ur4TBDqvCuecEjrkj6ek0y8LU7wLYABCkEe94`,
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 category,
@@ -33,7 +36,7 @@ export default function SearchPage2() {
                 console.log(error);
             });
         return () => (isMounted = false);
-    }, []);
+    }, [token]);
 
     return (
         <>

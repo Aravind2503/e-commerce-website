@@ -54,7 +54,7 @@ export default function ProductCard(props) {
                     ) : (
                         <button
                             className="btn btn-primary m-1"
-                            onClick={(e) => insertCartItem({ _id })}
+                            onClick={(e) => insertCartItem([_id])}
                         >
                             Add To Cart
                         </button>
