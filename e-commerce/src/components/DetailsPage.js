@@ -1,4 +1,3 @@
-import ImageGallery from "react-image-gallery";
 import ImageSlider from "./ImageSlider";
 import Navbar from "./Navbar";
 import { useEffect } from "react";
