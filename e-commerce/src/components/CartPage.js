@@ -29,7 +29,7 @@ export default function CartPage(props) {
                             );
                         })
                     ) : (
-                        <Loading>Loading Cart...</Loading>
+                        <Loading size="small">Loading Cart...</Loading>
                     )
                 ) : (
                     <div className="text-center">
