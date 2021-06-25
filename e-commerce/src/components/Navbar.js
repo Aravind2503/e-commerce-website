@@ -24,7 +24,7 @@ export default function Navbar(props) {
         }
         deleteServerToken();
 
-        window.location.reload();
+        window.location.replace("/home");
     }
 
     return (

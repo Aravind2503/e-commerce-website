@@ -116,7 +116,10 @@ router.post(
             // });
 
             for (const file of req.files) {
-                const buf = await sharp(file.buffer).png().toBuffer();
+                const buf = await sharp(file.buffer)
+                    .resize({ width: 250, height: 250 })
+                    .png()
+                    .toBuffer();
 
                 product.images.push(buf.toString("base64"));
                 // product.images = product.images.concat({ buf });
