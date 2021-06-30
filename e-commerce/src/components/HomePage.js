@@ -57,6 +57,7 @@ export default function HomePage(props) {
                                 height="220px"
                                 className="card-img-top"
                                 alt="product"
+                                style={{ objectFit: "cover" }}
                             />
                             <div className="card-body">
                                 <h5 className="card-title">

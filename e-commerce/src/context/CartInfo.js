@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useUserInfo } from "./UserInfo";
 
 const CartInfo = React.createContext();
 const UpdateCartInfo = React.createContext();
@@ -18,8 +19,9 @@ export function useCartProducts() {
 
 export function CartInfoProvider({ children }) {
     //cart is the list of products
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState({ length: 0 });
     const [cartProducts, setCartProducts] = useState([]);
+    const { token } = useUserInfo();
 
     async function fetchProduct(product_id) {
         const response = await fetch("http://localhost:9001/products/search", {
@@ -56,6 +58,8 @@ export function CartInfoProvider({ children }) {
     }
 
     async function patchCart(token, products) {
+        delete products.__proto__;
+        console.log("PATCH CART ::::", products);
         const response = await fetch("http://localhost:9001/cart", {
             method: "PATCH",
             headers: {
@@ -63,51 +67,57 @@ export function CartInfoProvider({ children }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                products: products,
+                products,
             }),
         });
     }
 
     const updateCartInfo = {
-        insertProduct: function (product) {
-            let newCart;
-            setCart((cart) => {
-                newCart = [...cart, ...product];
-                return newCart;
-            });
+        insertProduct: function (productId) {
+            const newCart = JSON.parse(JSON.stringify(cart));
 
-            fetchProduct(product);
-
-            if (localStorage && localStorage.token)
-                patchCart(localStorage.token, newCart);
-            else if (sessionStorage && sessionStorage.token)
-                patchCart(sessionStorage, newCart);
-        },
-
-        removeProduct: function (product) {
-            const newCart = cart.filter((p) => product._id !== p);
+            if (cart[productId] !== undefined) {
+                newCart[productId] += 1;
+            } else {
+                newCart[productId] = 1;
+                newCart.length += 1;
+                fetchProduct(productId);
+            }
 
             setCart(newCart);
 
-            setCartProducts(cartProducts.filter((p) => product._id !== p._id));
+            if (token) patchCart(token, newCart);
+        },
+
+        removeProduct: function (productId) {
+            const newCart = JSON.parse(JSON.stringify(cart));
+
+            if (cart[productId] !== undefined) {
+                if (cart[productId] <= 1) {
+                    delete newCart[productId];
+                    newCart.length -= 1;
+                    setCartProducts(
+                        cartProducts.filter((p) => productId !== p._id)
+                    );
+                } else {
+                    newCart[productId] -= 1;
+                }
+            }
+            setCart(newCart);
 
             console.log(
                 "request to removeProduct",
-                product,
+                productId,
                 cart,
-                cart.filter((p) => product._id !== p),
-                cartProducts,
-                cartProducts.filter((p) => product._id !== p._id)
+                cartProducts
             );
 
-            if (localStorage && localStorage.token)
-                patchCart(localStorage.token, newCart);
-            else if (sessionStorage && sessionStorage.token)
-                patchCart(sessionStorage.token, newCart);
+            if (token) patchCart(token, newCart);
         },
     };
 
     useEffect(() => {
+        // console.log("in cart info, ", token);
         async function fetchCart(token) {
             const response = await fetch("http://localhost:9001/cart", {
                 method: "GET",
@@ -118,26 +128,25 @@ export function CartInfoProvider({ children }) {
 
             if (response.ok) {
                 const cartInfo = await response.json();
+                cartInfo.length = parseInt(cartInfo.length);
                 setCart(cartInfo);
 
-                cartInfo.forEach((item) => {
-                    fetchProduct(item);
+                Object.keys(cartInfo).forEach((key) => {
+                    if (key !== "length") fetchProduct(key);
                 });
 
-                console.log(
-                    "in useEffect of cart context",
-                    cartInfo,
-                    cartProducts
-                );
+                // console.log(
+                //     "in useEffect of cart context",
+                //     cartInfo,
+                //     cartProducts
+                // );
             } else {
                 console.log("error", response);
             }
         }
 
-        if (localStorage && localStorage.token) fetchCart(localStorage.token);
-        else if (sessionStorage && sessionStorage.token)
-            fetchCart(sessionStorage.token);
-    }, []);
+        if (token) fetchCart(token);
+    }, [token]);
 
     return (
         <CartInfo.Provider value={cart}>

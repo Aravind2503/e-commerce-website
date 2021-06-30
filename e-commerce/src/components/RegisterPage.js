@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useUserInfoUpdate } from "../context/UserInfo";
 
 export default function RegisterPage(props) {
@@ -10,6 +10,7 @@ export default function RegisterPage(props) {
     const [password, setPassword] = useState("");
     const [rememberuser, setRememberuser] = useState(true);
 
+    const errorDiv = useRef();
     const updateUser = useUserInfoUpdate();
 
     function onSubmit(e) {
@@ -48,7 +49,16 @@ export default function RegisterPage(props) {
                 window.location.replace("/home");
                 return userinfo;
             } else {
-                console.log(response);
+                const error = await response.json();
+
+                if (error.email)
+                    errorDiv.current.innerHTML =
+                        "Email Already In Use. Please Use Other Email";
+                else errorDiv.current.innerHTML = error.message;
+
+                errorDiv.current.classList.toggle("d-none");
+                errorDiv.current.style.margin = "22px auto auto auto";
+                errorDiv.current.style.width = "70%";
             }
         }
 
@@ -60,6 +70,10 @@ export default function RegisterPage(props) {
     return (
         <div>
             <Navbar searchBar={false} />
+            <div
+                ref={errorDiv}
+                className="d-none alert alert-danger text-center"
+            ></div>
             <div className="container border border-dark border-4 p-5 mt-4">
                 <h1 className="text-center">Register</h1>
                 <form onSubmit={onSubmit}>

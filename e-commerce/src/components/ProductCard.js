@@ -1,4 +1,5 @@
 import { useUpdateCartInfo } from "../context/CartInfo";
+import ProductButton from "./ProductButton";
 
 export default function ProductCard(props) {
     const { name, image, category, price, _id } = props.product;
@@ -26,7 +27,7 @@ export default function ProductCard(props) {
                 </div>
             </div> */}
 
-            <div className="product-container">
+            <div className="product-container flex-box">
                 <div className="product-image me-2">
                     <img
                         src={`data:image/png;base64, ${image}`}
@@ -44,20 +45,36 @@ export default function ProductCard(props) {
                         MoreDetails
                     </button>
 
-                    {props.removeButton ? (
+                    {/* {props.removeButton ? (
                         <button
                             className="btn btn-primary m-1"
-                            onClick={(e) => removeCartItem({ _id })}
+                            onClick={(e) => removeCartItem(_id)}
                         >
                             Remove Item
                         </button>
                     ) : (
                         <button
                             className="btn btn-primary m-1"
-                            onClick={(e) => insertCartItem([_id])}
+                            onClick={(e) => insertCartItem(_id)}
                         >
                             Add To Cart
                         </button>
+                    )} */}
+
+                    {!props.inCart ? (
+                        <button
+                            className="p-2 bg-warning"
+                            onClick={(e) => insertCartItem(_id)}
+                        >
+                            Add to Cart
+                        </button>
+                    ) : (
+                        <ProductButton
+                            productId={_id}
+                            quantity={props.quantity}
+                            removeItem={(e) => removeCartItem(_id)}
+                            insertItem={(e) => insertCartItem(_id)}
+                        />
                     )}
                 </div>
             </div>

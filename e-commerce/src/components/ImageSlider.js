@@ -41,7 +41,7 @@ const ImageSlider = ({ images }) => {
                         {index === current && (
                             <img
                                 src={`data:image/png;base64, ${image}`}
-                                alt="product image"
+                                alt="product"
                                 className="image"
                             />
                         )}

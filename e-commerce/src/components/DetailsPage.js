@@ -28,6 +28,7 @@ const DetailsPage = (props) => {
             </div>
             <div
                 style={{
+                    width: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -88,7 +89,7 @@ const DetailsPage = (props) => {
                             backgroundColor: "orange",
                             borderColor: "black",
                         }}
-                        onClick={(e) => insertCartItem([product.id])}
+                        onClick={(e) => insertCartItem([product._id])}
                     />
                 </div>
             </div>

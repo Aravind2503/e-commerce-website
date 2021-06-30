@@ -22,7 +22,7 @@ export default function Searchbar(props) {
     }
 
     return (
-        <form action="/search" className="d-flex" onSubmit={onSubmit}>
+        <form action="/search" className="d-flex mx-3" onSubmit={onSubmit}>
             <input
                 className="form-control me-2 search-box"
                 type="search"

@@ -2,11 +2,12 @@ import Navbar from "./Navbar";
 import ProductCard from "./ProductCard2";
 import { useState, useEffect } from "react";
 import { useUserInfo } from "../context/UserInfo";
+import { useCartInfo } from "../context/CartInfo";
 
 export default function SearchPage2() {
     const [products, setProducts] = useState({});
     const [productSubSet, setProductSubSet] = useState({});
-
+    const cart = useCartInfo();
     const token = useUserInfo().token;
 
     useEffect(() => {
@@ -48,8 +49,16 @@ export default function SearchPage2() {
             <div className="flex-box mt-2">
                 {productSubSet.length ? (
                     productSubSet.map((product) => {
-                        return (
-                            <ProductCard product={product} key={product.id} />
+                        return cart[product._id] ? (
+                            <ProductCard
+                                inCart={true}
+                                quantity={cart[product._id]}
+                                removeButton={true}
+                                product={product}
+                                key={product._id}
+                            />
+                        ) : (
+                            <ProductCard product={product} key={product._id} />
                         );
                     })
                 ) : (
