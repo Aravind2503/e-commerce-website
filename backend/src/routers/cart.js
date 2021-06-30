@@ -13,9 +13,14 @@ router.get("/cart", auth, async (req, res) => {
     if (!cart) {
         const newCart = new Cart({
             email,
+            products: {
+                length: 0,
+            },
         });
         await newCart.save();
-        res.status(200).json(newCart.products);
+        console.log("created a new cart !", newCart);
+
+        return res.status(200).json(newCart.products);
     }
     console.log("in cart route", "cart", cart.products);
 
@@ -25,7 +30,7 @@ router.get("/cart", auth, async (req, res) => {
 router.patch("/cart", auth, async (req, res) => {
     const { email } = req.user;
 
-    console.log("PATCH:::::: in cart route req body", req.body);
+    console.log("PATCH:::::: in cart route req body");
 
     const cart = await Cart.findOne({
         email,
@@ -38,8 +43,11 @@ router.patch("/cart", auth, async (req, res) => {
             const updatedCart = await cart.save();
             res.status(200).json(updatedCart);
         } catch (err) {
+            console.log(err.message);
             res.status(400).json({ message: err.message });
         }
+    } else {
+        console.log("ERROR COULDN'T SAVE");
     }
 });
 

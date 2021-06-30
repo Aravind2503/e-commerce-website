@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUpdateCartInfo } from "../context/CartInfo";
+<<<<<<< HEAD
 import { useUserInfo } from "../context/UserInfo";
 
 export default function ProductCard2(props) {
@@ -8,6 +9,11 @@ export default function ProductCard2(props) {
 
     // useEffect(() => {}, []);
 
+=======
+import ProductButton from "./ProductButton";
+
+export default function ProductCard2(props) {
+>>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
     const { name, images, category, price, _id, brand, manufacturer } =
         props.product;
 
@@ -16,44 +22,60 @@ export default function ProductCard2(props) {
     const image = images[0];
 
     return (
-        <div style={cardStyle}>
-            <div style={{ margin: "30px" }}>
+        <div className="flex-box p-2 m-2 mt-1 pt-1 bg-light">
+            <div
+                className="flex-element flex-image p-1 m-1 border-0"
+                style={{
+                    flexBasis: "30%",
+                    flexGrow: "0",
+                    flexShrink: "initial",
+                }}
+            >
                 <img
                     src={`data:image/png;base64, ${image}`}
                     width="250px"
                     height="250px"
+<<<<<<< HEAD
                     // className="card-img-top"
+=======
+>>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
                     alt="product"
-                    style={{ float: "left", objectFit: "fill" }}
+                    style={{ objectFit: "fixed" }}
                 />
             </div>
-            <div style={info}>
+            <div
+                className="flex-element product-info p-1 m-1 border-0"
+                style={{ flexBasis: "40%" }}
+            >
                 <Link
-                    style={linkStyle}
                     to={{
                         pathname: "/details",
                         state: props.product,
                     }}
                     className="linkHover"
                 >
-                    {name}
+                    <h3>{name}</h3>
                 </Link>
-                <br></br>
-                price: <h6>{price} Rs</h6>
-                brand: <h6>{brand}</h6>
-                manufacturer: <h6>{manufacturer}</h6>
+
+                <div>
+                    price: <h4 className="d-inline">{price} Rs</h4>
+                </div>
+
+                <div>
+                    brand: <h6 className="d-inline">{brand}</h6>
+                </div>
+                <div>
+                    manufacturer: <h6 className="d-inline">{manufacturer}</h6>
+                </div>
             </div>
             <div
+                className="flex-element p-1 m-1 mb-4 text-center border-0"
                 style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "30px",
-                    marginRight: "0",
-                    marginLeft: "auto",
-                    display: "block",
+                    flexBasis: "20%",
+                    flexShrink: "6",
                 }}
-                className="AddCartButton"
             >
+<<<<<<< HEAD
                 {token ? (
                     <input
                         type="submit"
@@ -67,30 +89,25 @@ export default function ProductCard2(props) {
                     />
                 ) : (
                     <div></div>
+=======
+                {!props.inCart ? (
+                    <button
+                        className="p-2 bg-warning"
+                        onClick={(e) => insertCartItem(_id)}
+                    >
+                        Add to Cart
+                    </button>
+                ) : (
+                    <ProductButton
+                        productId={_id}
+                        quantity={props.quantity}
+                        removeItem={(e) => removeCartItem(_id)}
+                        insertItem={(e) => insertCartItem(_id)}
+                    />
+>>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
                 )}
             </div>
+            <hr className="flex-separator" />
         </div>
     );
 }
-
-const cardStyle = {
-    display: "flex",
-    width: "100%",
-    margin: "20px",
-    padding: "5px",
-    borderBottom: "2px solid grey",
-};
-
-const info = {
-    position: "relative",
-    padding: "50px 0px",
-    justifyContent: "center",
-    alignItems: "center",
-    overflowWrap: "normal",
-};
-
-const linkStyle = {
-    // textDecoration: "inherit",
-    // color: "black",
-    fontSize: "25px",
-};

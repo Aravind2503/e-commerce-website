@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useUserInfoUpdate } from "../context/UserInfo";
 
@@ -8,45 +8,64 @@ export default function LoginPage(props) {
     const [password, setPassword] = useState("");
     const [rememberuser, setRememberuser] = useState(false);
     const updateUser = useUserInfoUpdate();
+    const errorDiv = useRef();
 
     function onSubmit(e) {
         e.preventDefault();
 
         async function login() {
-            const response = await fetch("http://localhost:9001/users/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
-            });
+            try {
+                const response = await fetch(
+                    "http://localhost:9001/users/login",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password,
+                        }),
+                    }
+                );
 
-            if (!response.ok) {
-                alert("wrong email or password, Please Try Again");
-                return null;
-            } else {
-                const userInfo = await response.json();
-                console.log("inside login", userInfo);
-                if (userInfo)
-                    updateUser({
-                        name: userInfo.user.name,
-                        token: userInfo.token,
-                        remember: rememberuser,
-                    });
-                window.location.replace("/home");
-                return userInfo;
+                if (!response.ok) {
+                    errorDiv.current.innerHTML =
+                        "<div>Wrong Email or Password!</div>Please Try Again...";
+                    errorDiv.current.classList.toggle("d-none");
+                    errorDiv.current.style.margin = "22px auto auto auto";
+                    errorDiv.current.style.width = "70%";
+
+                    return null;
+                } else {
+                    const userInfo = await response.json();
+                    console.log("inside login", userInfo);
+                    if (userInfo)
+                        updateUser({
+                            name: userInfo.user.name,
+                            token: userInfo.token,
+                            remember: rememberuser,
+                        });
+                    window.location.replace("/home");
+                    return userInfo;
+                }
+            } catch (err) {
+                console.log("Wrong Credentials");
             }
         }
 
-        login();
+        login().catch((err) => {
+            console.log(err.message);
+        });
     }
 
     return (
         <div>
             <Navbar searchBar={false} />
+            <div
+                ref={errorDiv}
+                className="d-none alert alert-danger text-center"
+            ></div>
             <div className="container border border-dark border-4 p-5 mt-4">
                 <h1 className="text-center">Login</h1>
                 <form onSubmit={onSubmit}>

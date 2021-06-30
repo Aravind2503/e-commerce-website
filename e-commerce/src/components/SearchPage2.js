@@ -3,11 +3,12 @@ import ProductCard from "./ProductCard2";
 import { useState, useEffect } from "react";
 import { useUserInfo } from "../context/UserInfo";
 import Loading from "./Loading";
+import { useCartInfo } from "../context/CartInfo";
 
 export default function SearchPage2() {
     const [products, setProducts] = useState({});
     const [productSubSet, setProductSubSet] = useState({});
-
+    const cart = useCartInfo();
     const token = useUserInfo().token;
 
     useEffect(() => {

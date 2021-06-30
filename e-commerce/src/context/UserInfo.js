@@ -42,7 +42,7 @@ export function UserInfoProvider({ children }) {
                 if (userinfo) {
                     setUser({
                         name: userinfo.name,
-                        token: localStorage.token,
+                        token: token,
                     });
                 }
                 return userinfo;

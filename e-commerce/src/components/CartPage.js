@@ -22,6 +22,8 @@ export default function CartPage(props) {
                         products.map((product, index) => {
                             return (
                                 <ProductCard
+                                    inCart={true}
+                                    quantity={cart[product._id]}
                                     removeButton={true}
                                     product={product}
                                     key={index}
@@ -29,7 +31,7 @@ export default function CartPage(props) {
                             );
                         })
                     ) : (
-                        <Loading>Loading Cart...</Loading>
+                        <Loading size="small">Loading Cart...</Loading>
                     )
                 ) : (
                     <div className="text-center">

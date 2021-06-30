@@ -35,7 +35,7 @@ export default function Navbar(props) {
                         Super Market
                     </Link>
                     <button
-                        className="navbar-toggler"
+                        className="navbar-toggler m-2"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent"
@@ -50,8 +50,8 @@ export default function Navbar(props) {
                         id="navbarSupportedContent"
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            {!props.searchBar && (
-                                <li className="nav-item btn-group">
+                            <li className="nav-item btn-group">
+                                {window.location.pathname.includes("/home") ? (
                                     <Link
                                         className="nav-link active"
                                         aria-current="page"
@@ -59,8 +59,16 @@ export default function Navbar(props) {
                                     >
                                         Search
                                     </Link>
-                                </li>
-                            )}
+                                ) : (
+                                    <Link
+                                        className="nav-link active"
+                                        aria-current="page"
+                                        to="/home"
+                                    >
+                                        Home
+                                    </Link>
+                                )}
+                            </li>
                         </ul>
                         {props.searchBar && (
                             <Searchbar
@@ -69,7 +77,6 @@ export default function Navbar(props) {
                             />
                         )}
                         {username && <Cart />}
-
                         {username ? (
                             <div className="nav-item btn-group">
                                 <div
@@ -79,11 +86,19 @@ export default function Navbar(props) {
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
+                                    style={{ whiteSpace: "pre" }}
                                 >
-                                    {username || "USERNAME"}
+                                    {username
+                                        ? username
+                                              .padEnd(
+                                                  (username.length + 18) / 2
+                                              )
+                                              .padStart(18)
+                                        : "USERNAME"}
                                 </div>
                                 <ul
-                                    className="dropdown-menu"
+                                    className="dropdown-menu dropdown-menu-right p-3"
+                                    style={{ right: 3, left: "auto" }}
                                     aria-labelledby="navbarDropdown"
                                 >
                                     <li>
