@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUpdateCartInfo } from "../context/CartInfo";
+import { useUserInfo } from "../context/UserInfo";
 
 export default function ProductCard2(props) {
-    const { name, images, category, price, id, brand, manufacturer } =
+    const token = useUserInfo().token;
+
+    // useEffect(() => {}, []);
+
+    const { name, images, category, price, _id, brand, manufacturer } =
         props.product;
 
     const { removeProduct: removeCartItem, insertProduct: insertCartItem } =
@@ -17,7 +22,7 @@ export default function ProductCard2(props) {
                     src={`data:image/png;base64, ${image}`}
                     width="250px"
                     height="250px"
-                    className="card-img-top"
+                    // className="card-img-top"
                     alt="product"
                     style={{ float: "left", objectFit: "fill" }}
                 />
@@ -49,16 +54,20 @@ export default function ProductCard2(props) {
                 }}
                 className="AddCartButton"
             >
-                <input
-                    type="submit"
-                    value="Add to Cart"
-                    style={{
-                        padding: "10px",
-                        backgroundColor: "orange",
-                        borderColor: "black",
-                    }}
-                    onClick={(e) => insertCartItem([id])}
-                />
+                {token ? (
+                    <input
+                        type="submit"
+                        value="Add to Cart"
+                        style={{
+                            padding: "10px",
+                            backgroundColor: "orange",
+                            borderColor: "black",
+                        }}
+                        onClick={(e) => insertCartItem([_id])}
+                    />
+                ) : (
+                    <div></div>
+                )}
             </div>
         </div>
     );

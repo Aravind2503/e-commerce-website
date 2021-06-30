@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import ProductCard from "./ProductCard2";
 import { useState, useEffect } from "react";
 import { useUserInfo } from "../context/UserInfo";
+import Loading from "./Loading";
 
 export default function SearchPage2() {
     const [products, setProducts] = useState({});
@@ -12,19 +13,31 @@ export default function SearchPage2() {
     useEffect(() => {
         let isMounted = true;
         const urlParams = new URLSearchParams(window.location.search);
-        const category = urlParams.get("category"); // get the category here
+        var category = urlParams.get("category"); // get the category here
+        var requestOptions;
+        if (category === null) {
+            requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                // body: JSON.stringify({}),
+            };
+        } else {
+            //to get all the items from the database
+            requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    category,
+                }),
+            };
+        }
 
-        //to get all the items from the database
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                category,
-            }),
-        };
         fetch("http://localhost:9001/products/search", requestOptions)
             .then((response) => response.json())
             .then((data) => {
@@ -46,19 +59,26 @@ export default function SearchPage2() {
                 setProducts={setProductSubSet}
             />
             <div className="flex-box mt-2">
-                {productSubSet.length ? (
-                    productSubSet.map((product) => {
-                        return (
-                            <ProductCard product={product} key={product.id} />
-                        );
-                    })
+                {products.length ? (
+                    productSubSet.length ? (
+                        productSubSet.map((product) => {
+                            return (
+                                <ProductCard
+                                    product={product}
+                                    key={product.id}
+                                />
+                            );
+                        })
+                    ) : (
+                        <div>
+                            <h3>Sorry Couldn't Find Anything :(</h3>
+                            <ul>
+                                <li>Try searching for something else </li>
+                            </ul>
+                        </div>
+                    )
                 ) : (
-                    <div>
-                        <h3>Sorry Couldn't Find Anything :(</h3>
-                        <ul>
-                            <li>Try searching for something else </li>
-                        </ul>
-                    </div>
+                    <Loading>Loading...</Loading>
                 )}
             </div>
         </>

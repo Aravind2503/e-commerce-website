@@ -34,7 +34,7 @@ export default function CartPage(props) {
                 ) : (
                     <div className="text-center">
                         <h3>Cart Is Empty</h3>
-                        <Link to="/search">Continue Shopping</Link>
+                        <Link to="/home">Continue Shopping</Link>
                     </div>
                 )}
             </div>

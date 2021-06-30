@@ -9,27 +9,27 @@ const categories = [
     {
         name: "Stationery",
         id: 2,
-        image: "./assets/stationery-category.jpg",
+        image: "./assets/stationery.jpg",
     },
     {
         name: "Home",
         id: 3,
-        image: "./assets/home-category.jpg",
+        image: "./assets/home.jpg",
     },
     {
         name: "Fashion",
         id: 4,
-        image: "./assets/fashion-category.jpg",
+        image: "./assets/fashion.jpg",
     },
     {
         name: "Selfcare",
         id: 5,
-        image: "./assets/fashion-category.jpg",
+        image: "./assets/selfcare.jpg",
     },
     {
         name: "Toys",
         id: 6,
-        image: "./assets/fashion-category.jpg",
+        image: "./assets/toys.jpg",
     },
 ];
 
@@ -59,9 +59,7 @@ export default function HomePage(props) {
                                 alt="product"
                             />
                             <div className="card-body">
-                                <h5 className="card-title">
-                                    Product: {category.name}
-                                </h5>
+                                <h5 className="card-title">{category.name}</h5>
                             </div>
 
                             <form

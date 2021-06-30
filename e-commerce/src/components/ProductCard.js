@@ -1,5 +1,5 @@
 import { useUpdateCartInfo } from "../context/CartInfo";
-
+import { Link } from "react-router-dom";
 export default function ProductCard(props) {
     const { name, image, category, price, _id } = props.product;
     const { removeProduct: removeCartItem, insertProduct: insertCartItem } =
@@ -36,13 +36,23 @@ export default function ProductCard(props) {
                 </div>
 
                 <div className="product-info ms-2">
-                    <h5 className="product-name">Product: {name}</h5>
+                    <h5 className="product-name" style={{ width: "100%" }}>
+                        Product: {name}
+                    </h5>
                     <h6 className="product-price">Price: {price}</h6>
                     <div>Category: {category}</div>
                     <hr />
-                    <button href="#" className="btn btn-primary m-1">
-                        MoreDetails
-                    </button>
+                    <Link
+                        to="/details"
+                        to={{
+                            pathname: "/details",
+                            state: props.product,
+                        }}
+                    >
+                        <button className="btn btn-primary m-1">
+                            MoreDetails
+                        </button>
+                    </Link>
 
                     {props.removeButton ? (
                         <button

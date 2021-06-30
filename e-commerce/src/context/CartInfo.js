@@ -70,11 +70,8 @@ export function CartInfoProvider({ children }) {
 
     const updateCartInfo = {
         insertProduct: function (product) {
-            let newCart;
-            setCart((cart) => {
-                newCart = [...cart, ...product];
-                return newCart;
-            });
+            const newCart = [...cart, ...product];
+            setCart(newCart);
 
             fetchProduct(product);
 

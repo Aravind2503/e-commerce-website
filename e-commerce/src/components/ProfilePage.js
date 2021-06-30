@@ -14,6 +14,31 @@ const ProfilePage = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const deleteUser = (e) => {
+        e.preventDefault();
+
+        if (window.confirm("Are you sure you want to delete your Profile ?")) {
+            // e.preventDefault();
+            const requestOptions = {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            fetch("http://localhost:9001/users/me", requestOptions)
+                .then((response) => response.json())
+                .then((data) => {
+                    // setUser(data); // delete all the items from the cart here
+                    console.log("delete route data", data);
+                    window.location.replace("/home");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
     const updateFields = (e) => {
         // e.preventDefault();
         const requestOptions = {
@@ -113,6 +138,19 @@ const ProfilePage = () => {
                         value="Update"
                         className="btn-primary"
                         style={{ width: "100%" }}
+                    />
+                </form>
+                <form onSubmit={deleteUser}>
+                    <input
+                        type="Submit"
+                        value="Delete"
+                        // className="btn-primary"
+                        style={{
+                            width: "100%",
+                            backgroundColor: "red",
+                            borderColor: "red",
+                            color: "white",
+                        }}
                     />
                 </form>
             </div>
