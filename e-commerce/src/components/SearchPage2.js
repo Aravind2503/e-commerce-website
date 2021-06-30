@@ -79,7 +79,7 @@ export default function SearchPage2() {
                         </div>
                     )
                 ) : (
-                    <Loading>Loading...</Loading>
+                    <Loading size="small">Loading...</Loading>
                 )}
             </div>
         </>

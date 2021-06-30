@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUpdateCartInfo } from "../context/CartInfo";
-<<<<<<< HEAD
 import { useUserInfo } from "../context/UserInfo";
+import ProductButton from "./ProductButton";
 
 export default function ProductCard2(props) {
     const token = useUserInfo().token;
 
     // useEffect(() => {}, []);
 
-=======
-import ProductButton from "./ProductButton";
-
-export default function ProductCard2(props) {
->>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
     const { name, images, category, price, _id, brand, manufacturer } =
         props.product;
 
@@ -35,10 +30,7 @@ export default function ProductCard2(props) {
                     src={`data:image/png;base64, ${image}`}
                     width="250px"
                     height="250px"
-<<<<<<< HEAD
                     // className="card-img-top"
-=======
->>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
                     alt="product"
                     style={{ objectFit: "fixed" }}
                 />
@@ -75,28 +67,15 @@ export default function ProductCard2(props) {
                     flexShrink: "6",
                 }}
             >
-<<<<<<< HEAD
-                {token ? (
-                    <input
-                        type="submit"
-                        value="Add to Cart"
-                        style={{
-                            padding: "10px",
-                            backgroundColor: "orange",
-                            borderColor: "black",
-                        }}
-                        onClick={(e) => insertCartItem([_id])}
-                    />
-                ) : (
-                    <div></div>
-=======
                 {!props.inCart ? (
-                    <button
-                        className="p-2 bg-warning"
-                        onClick={(e) => insertCartItem(_id)}
-                    >
-                        Add to Cart
-                    </button>
+                    token && (
+                        <button
+                            className="p-2 bg-warning"
+                            onClick={(e) => insertCartItem(_id)}
+                        >
+                            Add to Cart
+                        </button>
+                    )
                 ) : (
                     <ProductButton
                         productId={_id}
@@ -104,7 +83,6 @@ export default function ProductCard2(props) {
                         removeItem={(e) => removeCartItem(_id)}
                         insertItem={(e) => insertCartItem(_id)}
                     />
->>>>>>> 27e7e16bf69cb00350e6ef3e49fa68a6fececd73
                 )}
             </div>
             <hr className="flex-separator" />

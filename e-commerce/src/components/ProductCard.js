@@ -1,5 +1,6 @@
 import { useUpdateCartInfo } from "../context/CartInfo";
 import ProductButton from "./ProductButton";
+import { Link } from "react-router-dom";
 
 export default function ProductCard(props) {
     const { name, image, category, price, _id } = props.product;
