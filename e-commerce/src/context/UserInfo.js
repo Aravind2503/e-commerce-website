@@ -43,6 +43,7 @@ export function UserInfoProvider({ children }) {
                     setUser({
                         name: userinfo.name,
                         token: token,
+                        address: userinfo.address,
                     });
                 }
                 return userinfo;

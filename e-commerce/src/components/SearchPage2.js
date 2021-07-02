@@ -66,7 +66,7 @@ export default function SearchPage2() {
                             return (
                                 <ProductCard
                                     product={product}
-                                    key={product.id}
+                                    key={product._id}
                                 />
                             );
                         })

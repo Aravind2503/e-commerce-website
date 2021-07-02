@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useUpdateCartInfo } from "../context/CartInfo";
 import { useUserInfo } from "../context/UserInfo";
@@ -6,7 +6,7 @@ import ProductButton from "./ProductButton";
 
 export default function ProductCard2(props) {
     const token = useUserInfo().token;
-
+    const linkToDetails = useRef();
     // useEffect(() => {}, []);
 
     const { name, images, category, price, _id, brand, manufacturer } =
@@ -27,6 +27,9 @@ export default function ProductCard2(props) {
                 }}
             >
                 <img
+                    onClick={(e) => {
+                        linkToDetails.current.click();
+                    }}
                     src={`data:image/png;base64, ${image}`}
                     width="250px"
                     height="250px"
@@ -40,6 +43,7 @@ export default function ProductCard2(props) {
                 style={{ flexBasis: "40%" }}
             >
                 <Link
+                    ref={linkToDetails}
                     to={{
                         pathname: "/details",
                         state: props.product,
