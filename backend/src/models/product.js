@@ -34,6 +34,23 @@ const productSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
+    subcategory: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    size: {
+        type: String,
+        trim: true,
+        // required: true,
+        default: "",
+    },
+    colour: {
+        type: String,
+        trim: true,
+        // required: true,
+        default: "",
+    },
     images: [String],
 });
 

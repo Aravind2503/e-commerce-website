@@ -8,6 +8,7 @@ import ProfilePage from "./components/ProfilePage";
 import DetailsPage from "./components/DetailsPage";
 import { UserInfoProvider } from "./context/UserInfo";
 import { CartInfoProvider } from "./context/CartInfo";
+import FashionDetailsPage from "./components/FashionDetailsPage";
 
 function App() {
     // const [products, setProducts] = useState([]);
@@ -28,6 +29,11 @@ function App() {
                         <Route path="/cart" exact component={CartPage} />
                         <Route path="/profile" exact component={ProfilePage} />
                         <Route path="/details" exact component={DetailsPage} />
+                        <Route
+                            path="/detailsfashion"
+                            exact
+                            component={FashionDetailsPage}
+                        />
                     </CartInfoProvider>
                 </UserInfoProvider>
             </Router>

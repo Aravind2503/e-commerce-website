@@ -39,15 +39,27 @@ export default function ProductCard2(props) {
                 className="flex-element product-info p-1 m-1 border-0"
                 style={{ flexBasis: "40%" }}
             >
-                <Link
-                    to={{
-                        pathname: "/details",
-                        state: props.product,
-                    }}
-                    className="linkHover"
-                >
-                    <h3>{name}</h3>
-                </Link>
+                {category !== "Fashion" ? (
+                    <Link
+                        to={{
+                            pathname: "/details",
+                            state: props.product,
+                        }}
+                        className="linkHover"
+                    >
+                        <h3>{name}</h3>
+                    </Link>
+                ) : (
+                    <Link
+                        to={{
+                            pathname: "/detailsfashion",
+                            state: props.product,
+                        }}
+                        className="linkHover"
+                    >
+                        <h3>{name}</h3>
+                    </Link>
+                )}
 
                 <div>
                     price: <h4 className="d-inline">{price} Rs</h4>

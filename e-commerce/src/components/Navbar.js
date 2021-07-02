@@ -76,8 +76,8 @@ export default function Navbar(props) {
                                 products={props.products}
                             />
                         )}
-                        {username && <Cart />}
-                        {username ? (
+                        {token && <Cart />}
+                        {token ? (
                             <div className="nav-item btn-group">
                                 <div
                                     className="nav-link dropdown-toggle"

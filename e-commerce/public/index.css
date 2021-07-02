@@ -247,3 +247,13 @@ a {
     color: black;
     text-decoration: none;
 }
+
+/* button subcategory styles */
+.btn-subcategory:active {
+    background-color: orange;
+}
+
+.btn-subcategory:hover {
+    background-color: orange;
+    text-decoration: underline;
+}
