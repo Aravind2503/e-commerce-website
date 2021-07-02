@@ -93,6 +93,13 @@ a {
         width: 200px;
     }
 
+    .checkout-cart {
+        width: 100%;
+    }
+    .checkout {
+        width: 90% !important;
+    }
+
     /* .flex-element button {
         font-size: 10px;
     }
