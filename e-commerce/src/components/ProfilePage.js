@@ -13,6 +13,7 @@ const ProfilePage = () => {
     const [age, setAge] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [address, setAddress] = useState();
 
     const deleteUser = (e) => {
         e.preventDefault();
@@ -52,6 +53,7 @@ const ProfilePage = () => {
                 age,
                 email,
                 password,
+                address,
             }),
         };
         fetch("http://localhost:9001/users/me", requestOptions)
@@ -113,6 +115,16 @@ const ProfilePage = () => {
                         // value={user.age}
                         placeholder={user.age}
                         onChange={(e) => setAge(e.target.value)}
+                    />
+                    <label htmlFor="name" className="form-label">
+                        Delivery Address
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        // value={user.age}
+                        placeholder={user.address}
+                        onChange={(e) => setAddress(e.target.value)}
                     />
                     <label htmlFor="name" className="form-label">
                         Email
