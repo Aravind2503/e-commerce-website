@@ -49,6 +49,7 @@ export default function ProductCard2(props) {
                             state: props.product,
                         }}
                         className="linkHover"
+                        ref={linkToDetails}
                     >
                         <h3>{name}</h3>
                     </Link>

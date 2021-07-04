@@ -16,16 +16,23 @@ export default function CartPage(props) {
     return (
         <>
             <Navbar />
-            <div className="text-center m-2 fixed-bottom">
-                <button className="btn btn-success px-5">
-                    <Link
-                        style={{ textDecoration: "None", color: "white" }}
-                        to="/checkout"
-                    >
-                        Checkout
-                    </Link>
-                </button>
-            </div>
+
+            {cart.length !== 0 && (
+                <div className="text-center m-2 fixed-bottom">
+                    <button className="btn btn-success px-5">
+                        <Link
+                            style={{
+                                textDecoration: "None",
+                                color: "white",
+                            }}
+                            to="/checkout"
+                        >
+                            Checkout
+                        </Link>
+                    </button>
+                </div>
+            )}
+
             <div className="flex-box mt-2 mb-5">
                 {cart.length ? (
                     products.length === cart.length ? (
