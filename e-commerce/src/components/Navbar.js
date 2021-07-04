@@ -112,6 +112,14 @@ export default function Navbar(props) {
                                     <li>
                                         <Link
                                             className="dropdown-item"
+                                            to="/order"
+                                        >
+                                            Order History
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            className="dropdown-item"
                                             to="/profile"
                                         >
                                             Profile

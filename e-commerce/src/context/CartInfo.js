@@ -58,7 +58,7 @@ export function CartInfoProvider({ children }) {
     }
 
     async function patchCart(token, products) {
-        delete products.__proto__;
+        if (products.__proto__) delete products.__proto__;
         console.log("PATCH CART ::::", products);
         const response = await fetch("http://localhost:9001/cart", {
             method: "PATCH",
@@ -113,6 +113,36 @@ export function CartInfoProvider({ children }) {
             );
 
             if (token) patchCart(token, newCart);
+        },
+
+        clear: function () {
+            setCart({ length: 0 });
+            patchCart(token, { length: 0 });
+        },
+
+        placeOrder: function () {
+            async function orderUpdate() {
+                const res = await fetch("http://localhost:9001/order", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        history: cart,
+                    }),
+                });
+
+                if (res) {
+                    console.log(await res.json());
+                }
+            }
+            if (cart.length >= 1) orderUpdate();
+        },
+
+        placeOrderAndClearCart: function () {
+            updateCartInfo.placeOrder();
+            updateCartInfo.clear();
         },
     };
 

@@ -42,3 +42,8 @@ GET http://localhost:9001/cart/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNmNWRlYWE2NWEwYTM3ZWM4ZThkZjEiLCJpYXQiOjE2MjQzNzg2NTl9.T1d5BrU562vk6PS2gCoC7yJKcu3pKufhZOJL9Gwt52M
 
 ####
+GET http://localhost:9001/order/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGNmNWRlYWE2NWEwYTM3ZWM4ZThkZjEiLCJpYXQiOjE2MjU0MDI4MDN9.QRRYcoY6ewPsnFaYBycFUsqNmzVRGvpE6XRtYnk5uqs
+
+
+

@@ -18,11 +18,11 @@ router.get("/cart", auth, async (req, res) => {
             },
         });
         await newCart.save();
-        console.log("created a new cart !", newCart);
+        // console.log("created a new cart !", newCart);
 
         return res.status(200).json(newCart.products);
     }
-    console.log("in cart route", "cart", cart.products);
+    // console.log("in cart route", "cart", cart.products);
 
     res.status(200).json(cart.products);
 });
@@ -30,12 +30,12 @@ router.get("/cart", auth, async (req, res) => {
 router.patch("/cart", auth, async (req, res) => {
     const { email } = req.user;
 
-    console.log("PATCH:::::: in cart route req body");
+    // console.log("PATCH:::::: in cart route req body");
 
     const cart = await Cart.findOne({
         email,
     });
-    console.log("in cart", "req body:", req.body);
+    // console.log("in cart", "req body:", req.body);
     if (req.body) {
         cart.products = req.body.products;
 
@@ -47,7 +47,7 @@ router.patch("/cart", auth, async (req, res) => {
             res.status(400).json({ message: err.message });
         }
     } else {
-        console.log("ERROR COULDN'T SAVE");
+        // console.log("ERROR COULDN'T SAVE");
     }
 });
 

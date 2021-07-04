@@ -10,6 +10,7 @@ import { UserInfoProvider } from "./context/UserInfo";
 import { CartInfoProvider } from "./context/CartInfo";
 import FashionDetailsPage from "./components/FashionDetailsPage";
 import CheckoutPage from "./components/CheckoutPage";
+import OrderPage from "./components/OrderPage";
 
 function App() {
     // const [products, setProducts] = useState([]);
@@ -40,6 +41,7 @@ function App() {
                             exact
                             component={CheckoutPage}
                         />
+                        <Route path="/order" exact component={OrderPage} />
                     </CartInfoProvider>
                 </UserInfoProvider>
             </Router>
