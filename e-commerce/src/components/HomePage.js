@@ -73,6 +73,7 @@ export default function HomePage(props) {
                                     type="text"
                                     name="category"
                                     value={category.name}
+                                    onChange={(e) => {}}
                                 />
                             </form>
                         </div>

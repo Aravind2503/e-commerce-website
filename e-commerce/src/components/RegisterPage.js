@@ -6,9 +6,10 @@ import { useUserInfoUpdate } from "../context/UserInfo";
 export default function RegisterPage(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [age, setAge] = useState(undefined);
+    const [age, setAge] = useState("");
     const [password, setPassword] = useState("");
     const [rememberuser, setRememberuser] = useState(true);
+    const [address, setAddress] = useState("");
 
     const errorDiv = useRef();
     const updateUser = useUserInfoUpdate();
@@ -20,6 +21,7 @@ export default function RegisterPage(props) {
             email,
             age,
             password,
+            address,
         });
         async function register() {
             const response = await fetch("http://localhost:9001/users", {
@@ -32,6 +34,7 @@ export default function RegisterPage(props) {
                     email,
                     age,
                     password,
+                    address,
                 }),
             });
 
@@ -56,9 +59,10 @@ export default function RegisterPage(props) {
                         "Email Already In Use. Please Use Other Email";
                 else errorDiv.current.innerHTML = error.message;
 
-                errorDiv.current.classList.toggle("d-none");
+                errorDiv.current.classList.remove("d-none");
                 errorDiv.current.style.margin = "22px auto auto auto";
                 errorDiv.current.style.width = "70%";
+                errorDiv.current.scrollIntoView(true);
             }
         }
 
@@ -116,6 +120,20 @@ export default function RegisterPage(props) {
                             required
                             value={age}
                             onChange={(e) => setAge(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="address" className="form-label">
+                            Address :
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="address"
+                            required
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </div>
 

@@ -11,51 +11,31 @@ const SubCategoryButtons = ({ subCategories, category }) => {
     };
 
     return (
-        <div>
-            <div
-                style={{
-                    display: "flex",
-
-                    alignItems: "center",
-                    // width: "100%",
-                    borderBottom: "1px solid grey",
-                }}
-            >
-                <div
-                    style={{
-                        justifyContent: "flex-start",
-                        // marginRight: "auto",
-                        // flex: "1",
-                    }}
+        <div
+            className="flex-box border border-dark mb-5"
+            style={{ width: "100%" }}
+        >
+            <div className="flex-item">
+                <button
+                    style={categoryButtonStyle}
+                    onClick={() => gotoCategory(category)}
                 >
-                    <button
-                        style={categoryButtonStyle}
-                        onClick={() => gotoCategory(category)}
-                    >
-                        <h1>{category}</h1>
-                    </button>
-                </div>
-                <div
-                    style={{
-                        justifyContent: "center",
-                        marginLeft: "auto",
-                        flex: "1",
-                        // overflowX: "scroll",
-                    }}
-                >
-                    {subCategories.map((subcategory, index) => {
-                        return (
-                            <button
-                                style={buttonStyle}
-                                className="btn-subcategory"
-                                key={index}
-                                onClick={() => submitSubcategory(subcategory)}
-                            >
-                                {subcategory}
-                            </button>
-                        );
-                    })}
-                </div>
+                    <h1>{category}</h1>
+                </button>
+            </div>
+            <div className="flex-item">
+                {subCategories.map((subcategory, index) => {
+                    return (
+                        <button
+                            style={buttonStyle}
+                            className="btn-subcategory"
+                            key={index}
+                            onClick={() => submitSubcategory(subcategory)}
+                        >
+                            {subcategory}
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
@@ -65,7 +45,7 @@ const buttonStyle = {
     // borderRadius: "16px",
     padding: "10px 20px",
     border: "none",
-    margin: "10px 50px",
+    margin: "16px 50px",
     backgroundColor: "transparent",
 };
 
@@ -73,7 +53,7 @@ const categoryButtonStyle = {
     // borderRadius: "16px",
     padding: "10px 20px",
     border: "none",
-    margin: "10px 50px",
+    margin: "2px 50px",
     backgroundColor: "transparent",
 };
 

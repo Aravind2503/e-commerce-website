@@ -100,6 +100,32 @@ a {
         width: 90% !important;
     }
 
+    .slider {
+        margin: auto;
+        height: 380px !important;
+    }
+
+    .image-slider-div {
+        height: 250px !important;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .image {
+        width: 190px !important;
+        height: 220px !important;
+    }
+
+    .slider svg {
+        height: 25px;
+        width: 25px;
+        margin: 0px !important;
+    }
+
+    .small-margin-0 {
+        margin: 0 !important;
+    }
+
     /* .flex-element button {
         font-size: 10px;
     }
@@ -186,39 +212,26 @@ a {
 
 /* for the image slider */
 .slider {
-    position: relative;
-    height: 100vh;
+    /* position: relative;
+    height: 100vh; */
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .image {
-    width: 500px;
-    height: 500px;
-    position: left;
+    width: 450px;
 }
 
 .right-arrow {
-    position: absolute;
-    top: 50%;
-    right: 0px;
-    font-size: 3rem;
-    color: grey;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
+    height: 50px;
+    width: 50px;
 }
 
 .left-arrow {
-    position: absolute;
-    top: 50%;
-    left: 0px;
-    font-size: 3rem;
-    color: grey;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
+    height: 50px;
+    width: 50px;
 }
 
 .slide {

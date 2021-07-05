@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { useUserInfo } from "../context/UserInfo";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
 
 export default function OrderProductCard({ products_quantity, item }) {
     const [products, setProducts] = useState([]);
-    const { token } = useUserInfo();
     const productListDiv = useRef();
     const dropdown = useRef();
     const dropup = useRef();
@@ -62,6 +60,7 @@ export default function OrderProductCard({ products_quantity, item }) {
                 <div>Time: {item.createdAt.split("T")[1].split(".")[0]}</div>
                 <div>OrderID: {item._id}</div>
                 <div>Number of Products: {item.products.length}</div>
+                <div>Delivery Address: {item.address || "NA"}</div>
             </div>
 
             <div ref={productListDiv} className="d-none">
@@ -69,7 +68,7 @@ export default function OrderProductCard({ products_quantity, item }) {
                 Object.keys(products_quantity).length - 1 ? (
                     <div>
                         <Loading size="small" />
-                        {"products length = " +
+                        {/* {"products length = " +
                             products.length +
                             "    products_quantity =" +
                             Object.keys(products_quantity).length}
@@ -77,7 +76,7 @@ export default function OrderProductCard({ products_quantity, item }) {
                         {"products  = " +
                             JSON.stringify(products.length) +
                             "    products_quantity =" +
-                            JSON.stringify(Object.keys(products_quantity))}
+                            JSON.stringify(Object.keys(products_quantity))} */}
                     </div>
                 ) : (
                     products.map((product, index) => {

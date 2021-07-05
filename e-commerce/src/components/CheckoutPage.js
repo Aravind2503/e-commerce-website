@@ -7,16 +7,15 @@ import {
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import ProductCard2 from "./ProductCard2";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useUserInfo } from "../context/UserInfo";
 
 import { MdDone } from "react-icons/md";
-import { booleanLiteral } from "@babel/types";
 
 export default function CheckoutPage(props) {
     const cart = useCartInfo();
     const products = useCartProducts();
-    const { address, token } = useUserInfo();
+    const { address } = useUserInfo();
     const { placeOrderAndClearCart } = useUpdateCartInfo();
     const loading = useRef();
     const success = useRef();
@@ -91,8 +90,8 @@ export default function CheckoutPage(props) {
                     </div>
 
                     <div className="my-3">
-                        <div>Your Delivery Address: </div>
-                        <div>{address}</div>
+                        Your Delivery Address:{" "}
+                        <h5 className="d-inline">{address}</h5>
                     </div>
 
                     <div className="my-3 mb-5">

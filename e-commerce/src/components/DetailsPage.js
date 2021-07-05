@@ -8,8 +8,7 @@ import { useUserInfo } from "../context/UserInfo";
 const DetailsPage = (props) => {
     const token = useUserInfo().token;
     const product = props.location.state;
-    const { removeProduct: removeCartItem, insertProduct: insertCartItem } =
-        useUpdateCartInfo();
+    const { insertProduct: insertCartItem } = useUpdateCartInfo();
 
     //using this to scroll to the top always at page load
     useEffect(() => {
@@ -29,23 +28,23 @@ const DetailsPage = (props) => {
             <div>
                 <Navbar search={false} />
             </div>
-            <div
-                style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <div style={{ margin: "0px 0px 0px 50px" }}>
-                    <ImageSlider images={product.images} />
+            <div className="flex-box m-5 small-margin-0">
+                <div
+                    className="flex-item flex-image mt-4"
+                    style={{ flexBasis: "20%", justifyContent: "center" }}
+                >
+                    <ImageSlider
+                        images={product.images}
+                        style={{ margin: "auto" }}
+                    />
                 </div>
 
                 <div
+                    className="flex-item product-info"
                     style={{
-                        margin: "100px",
-                        padding: "0px 50px",
-                        width: "100%",
+                        flexBasis: "50%",
+                        flexGrow: "10",
+                        justifyContent: "center",
                     }}
                 >
                     <h3
@@ -61,9 +60,8 @@ const DetailsPage = (props) => {
                     <div
                         style={{
                             overflowY: "scroll",
-                            height: "500px",
+                            height: "400px",
                         }}
-                        // className="scrHideEdge scrHideChrome"
                     >
                         <h4>Price</h4>
                         <p>{product.price} Rs</p>
@@ -89,25 +87,13 @@ const DetailsPage = (props) => {
                                 // className="btn-primary"
                                 value="Add to Cart"
                                 style={{
-                                    margin: "30px 0px",
+                                    // margin: "30px 0px",
                                     width: "100%",
                                     padding: "10px",
                                     backgroundColor: "orange",
                                     borderColor: "black",
                                 }}
                                 onClick={(e) => insertCartItem([product._id])}
-                            />
-                            <input
-                                type="Submit"
-                                // className="btn-primary"
-                                value="Proceed to Checkout"
-                                style={{
-                                    margin: "10px 0px",
-                                    width: "100%",
-                                    padding: "10px",
-                                    backgroundColor: "lavender",
-                                    borderColor: "black",
-                                }}
                             />
                         </>
                     ) : (

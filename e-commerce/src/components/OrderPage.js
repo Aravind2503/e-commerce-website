@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useUserInfo } from "../context/UserInfo";
 import Navbar from "./Navbar";
 import OrderProductCard from "./OrderProductCard";
+import Loading from "./Loading";
 
 export default function OrderPage(props) {
     const { token } = useUserInfo();
@@ -35,6 +36,11 @@ export default function OrderPage(props) {
             <div style={{ width: "90%", margin: "auto" }}>
                 <h2 className="my-3">Order History</h2>
                 {/* <div>{JSON.stringify(orderHistory)}</div> */}
+                {orderHistory.length === 0 && (
+                    <Loading size="small">
+                        Loading Your Order History...
+                    </Loading>
+                )}
                 <div>
                     {orderHistory.map((item, index) => {
                         return (

@@ -1,9 +1,4 @@
-import {
-    useCartInfo,
-    useCartProducts,
-    useUpdateCartInfo,
-} from "../context/CartInfo";
-import { useEffect, useState } from "react";
+import { useCartInfo, useCartProducts } from "../context/CartInfo";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import ProductCard2 from "./ProductCard2";

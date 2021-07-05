@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import ProductCard from "./ProductCard2";
+import ProductCard2 from "./ProductCard2";
 import { useState, useEffect } from "react";
 import { useUserInfo } from "../context/UserInfo";
 import Loading from "./Loading";
@@ -80,7 +80,7 @@ export default function SearchPage2() {
             .then((data) => {
                 if (isMounted) setProducts(data);
                 if (isMounted) setProductSubSet(data);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -103,8 +103,16 @@ export default function SearchPage2() {
                 {products.length ? (
                     productSubSet.length ? (
                         productSubSet.map((product) => {
-                            return (
-                                <ProductCard
+                            return !cart[product._id] ? (
+                                <ProductCard2
+                                    product={product}
+                                    key={product._id}
+                                />
+                            ) : (
+                                <ProductCard2
+                                    inCart={true}
+                                    quantity={cart[product._id]}
+                                    removeButton={true}
                                     product={product}
                                     key={product._id}
                                 />

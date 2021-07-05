@@ -6,7 +6,7 @@ import { useUserInfoUpdate } from "../context/UserInfo";
 export default function LoginPage(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [rememberuser, setRememberuser] = useState(false);
+    const [rememberuser, setRememberuser] = useState(true);
     const updateUser = useUserInfoUpdate();
     const errorDiv = useRef();
 
@@ -32,10 +32,10 @@ export default function LoginPage(props) {
                 if (!response.ok) {
                     errorDiv.current.innerHTML =
                         "<div>Wrong Email or Password!</div>Please Try Again...";
-                    errorDiv.current.classList.toggle("d-none");
+                    errorDiv.current.classList.remove("d-none");
                     errorDiv.current.style.margin = "22px auto auto auto";
                     errorDiv.current.style.width = "70%";
-
+                    errorDiv.current.scrollIntoView(true);
                     return null;
                 } else {
                     const userInfo = await response.json();
@@ -105,6 +105,7 @@ export default function LoginPage(props) {
                             className="form-check-input"
                             id="rememberuser"
                             value={rememberuser}
+                            checked={rememberuser}
                             onChange={(e) => {
                                 console.log(e.currentTarget.checked);
                                 setRememberuser(e.currentTarget.checked);
